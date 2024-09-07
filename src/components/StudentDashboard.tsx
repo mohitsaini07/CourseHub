@@ -2,11 +2,9 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { markAsCompleted, enrollInCourse } from "../redux/studentSlice";
-import { ProgressBar } from "react-bootstrap";
 
 const StudentDashboard = () => {
   const dispatch = useDispatch();
-
   const enrolledCourses = useSelector(
     (state: RootState) => state.students.enrolledCourses
   );
@@ -22,7 +20,7 @@ const StudentDashboard = () => {
             "https://img.freepik.com/premium-vector/creative-web-development-design_961875-488603.jpg?ga=GA1.1.442875978.1722752158&semt=ais_hybrid",
           dueDate: "2024-09-30",
           completed: false,
-          progress: 50,
+          progress: 70,
         })
       );
 
@@ -35,11 +33,11 @@ const StudentDashboard = () => {
             "https://img.freepik.com/free-vector/coding-concept-illustration_114360-939.jpg?ga=GA1.1.442875978.1722752158&semt=ais_hybrid",
           dueDate: "2024-10-15",
           completed: false,
-          progress: 20,
+          progress: 30,
         })
       );
     }
-  }, [dispatch, enrolledCourses]);
+  }, []);
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen font-josefin">
@@ -67,15 +65,24 @@ const StudentDashboard = () => {
               <p className="text-gray-500 mb-4">
                 Due date: {course.dueDate || "N/A"}
               </p>
-              <ProgressBar
-                variant={course.completed ? "success" : "info"}
-                now={course.completed ? 100 : course.progress}
-                label={`${course.completed ? "100%" : `${course.progress}%`}`}
-                className="mb-4"
-              />
+
+              <div className="relative w-full h-6 bg-gray-200 rounded-full mb-4">
+                <div
+                  className={`h-full rounded-full transition-all duration-500 ease-in-out ${
+                    course.completed ? "bg-green-500" : "bg-blue-500"
+                  }`}
+                  style={{
+                    width: `${course.completed ? 100 : course.progress}%`,
+                  }}
+                />
+                <span className="absolute inset-0 flex items-center justify-center text-white text-sm font-bold">
+                  {course.completed ? "100%" : `${course.progress}%`}
+                </span>
+              </div>
+
               <button
                 onClick={() => dispatch(markAsCompleted(course.id))}
-                className={`w-full py-2 text-white rounded ${
+                className={`w-full py-2 mt-4 text-white rounded ${
                   course.completed ? "bg-green-500" : "bg-blue-500"
                 } hover:opacity-90`}
                 disabled={course.completed}
