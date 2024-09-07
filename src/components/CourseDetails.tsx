@@ -9,7 +9,7 @@ interface Syllabus {
 }
 
 interface Course {
-  id: number | undefined;
+  id: number;
   name: string;
   instructor: string;
   description: string;
@@ -24,8 +24,9 @@ interface Course {
 
 const CourseDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const courseId = id ? parseInt(id, 10) : NaN;
   const course = useSelector((state: RootState) =>
-    state.courses.courses.find((course: Course) => course.id === parseInt(id))
+    state.courses.courses.find((course: Course) => course.id === courseId)
   );
 
   if (!course) {

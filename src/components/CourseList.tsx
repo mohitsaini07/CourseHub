@@ -20,7 +20,7 @@ const CourseList: React.FC = () => {
   );
 
   return (
-    <div className="p-6 bg-[conic-gradient(at_top,_var(--tw-gradient-stops))]  from-yellow-200 via-emerald-200 to-yellow-200 min-h-screen font-josefin">
+    <div className="p-6 bg-gray-100 min-h-screen font-josefin">
       <h1 className="text-6xl font-bold text-center text-gray-800 uppercase mb-6 font-rubik">
         Courses
       </h1>
@@ -35,7 +35,7 @@ const CourseList: React.FC = () => {
         />
         <Link
           to="/dashboard"
-          className="ml-4 bg-blue-800 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-600"
+          className="ml-4 bg-purple-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-purple-500"
         >
           Go to Dashboard
         </Link>
@@ -59,7 +59,9 @@ const CourseList: React.FC = () => {
             </Link>
           ))
         ) : (
-          <p className="text-white text-xl font-semibold">No courses found</p>
+          <p className="text-gray-700 text-xl font-semibold">
+            No courses found
+          </p>
         )}
       </div>
     </div>
