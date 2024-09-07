@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { RootState } from "../redux/store";
+interface Course {
+  id: number;
+  name: string;
+  instructor: string;
+  thumbnail: string;
+}
 
-const CourseList = () => {
-  const courses = useSelector((state) => state.courses.courses);
-  const [search, setSearch] = useState("");
+const CourseList: React.FC = () => {
+  const courses = useSelector((state: RootState) => state.courses.courses);
+  const [search, setSearch] = useState<string>("");
 
   const filteredCourses = courses.filter(
-    (course) =>
+    (course: Course) =>
       course.name.toLowerCase().includes(search.toLowerCase()) ||
       course.instructor.toLowerCase().includes(search.toLowerCase())
   );
@@ -36,7 +43,7 @@ const CourseList = () => {
 
       <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.length > 0 ? (
-          filteredCourses.map((course) => (
+          filteredCourses.map((course: Course) => (
             <Link to={`/course/${course.id}`} key={course.id}>
               <div className="p-4 bg-white rounded-lg shadow-sm hover:shadow-xl transition-shadow">
                 <img
